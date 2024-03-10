@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Movement();
+        IsGrounded();
         Jump();
     }
 
@@ -39,8 +40,11 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         _movement = new Vector2(horizontalInput, 0f);
+    }
 
-        _isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
+    private bool IsGrounded()
+    {
+        return _isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
     }
 
     private void Jump()
