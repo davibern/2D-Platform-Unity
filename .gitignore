@@ -9,7 +9,11 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
-/[Aa]ssets/
+/[Aa]ssets/[Ss]prites/
+/[Aa]ssets/[Ss]cenes/
+/[Aa]ssets/[Aa]udios/
+/[Aa]ssets/[Tt]iles/
+/[Aa]ssets/[Ss]cenes/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
