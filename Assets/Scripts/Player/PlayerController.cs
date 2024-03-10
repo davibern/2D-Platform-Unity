@@ -26,9 +26,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Movement();
-
-        if (Input.GetButtonDown("Jump") && _isGrounded)
-            Jump();
+        Jump();
     }
 
     private void FixedUpdate()
@@ -48,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         if (!_isGrounded) return;
-        _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        if (Input.GetButtonDown("Jump") && _isGrounded)
+            _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
     }
 }
