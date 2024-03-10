@@ -25,12 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // Horizontal movement
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        _movement = new Vector2(horizontalInput, 0f);
-
-        // Check jump
-        _isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
+        Movement();
 
         if (Input.GetButtonDown("Jump") && _isGrounded)
             Jump();
@@ -40,6 +35,14 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalVelocity = _movement.normalized.x * _speed;
         _rb.velocity = new Vector2(horizontalVelocity, _rb.velocity.y);
+    }
+
+    private void Movement()
+    {
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        _movement = new Vector2(horizontalInput, 0f);
+
+        _isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
     }
 
     private void Jump()
