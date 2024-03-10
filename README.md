@@ -1,2 +1,3 @@
 # 2D-Platform-Unity
- 2D game platform made with Unity (Demo)
+
+This is a game demo developed with Unity to learn this fantastic tool to make videogames 🙃
