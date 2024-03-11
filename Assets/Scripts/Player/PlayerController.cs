@@ -5,15 +5,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
-    private Vector2 _movement;
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
+    private Vector2 _movement;
     private float _groundCheckRadius = 0.3f;
     private bool _isGrounded;
+    private bool _facingRight = true;
 
     [Header("GameObjects")]
-    private Rigidbody2D _rb;
     [SerializeField] private Transform _groundCheck;
+    private Rigidbody2D _rb;
 
     [Header("Layers")]
     [SerializeField] private LayerMask _groundLayer;
@@ -40,6 +41,15 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         _movement = new Vector2(horizontalInput, 0f);
+
+        if (horizontalInput < 0 && _facingRight)
+        {
+            Flip();
+        }
+        else if (horizontalInput > 0 && !_facingRight)
+        {
+            Flip();
+        }
     }
 
     private bool IsGrounded()
@@ -52,5 +62,13 @@ public class PlayerController : MonoBehaviour
         if (!_isGrounded) return;
         if (Input.GetButtonDown("Jump") && _isGrounded)
             _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+    }
+
+    private void Flip()
+    {
+        _facingRight = !_facingRight;
+        float localScaleX = transform.localScale.x;
+        localScaleX = localScaleX * -1;
+        transform.localScale = new Vector3(localScaleX, transform.localScale.y, transform.localScale.z);
     }
 }
