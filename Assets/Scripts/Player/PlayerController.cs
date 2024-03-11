@@ -7,21 +7,26 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
+    [SerializeField] private Transform _groundCheck;
     private Vector2 _movement;
     private float _groundCheckRadius = 0.3f;
     private bool _isGrounded;
     private bool _facingRight = true;
 
+    [Header("Animations")]
+    private bool _isMooving;
+
     [Header("Components")]
-    [SerializeField] private Transform _groundCheck;
     private Rigidbody2D _rb;
+    private Animator _anim;
 
     [Header("Layers")]
     [SerializeField] private LayerMask _groundLayer;
 
-    private void Start()
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -41,6 +46,7 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         _movement = new Vector2(horizontalInput, 0f);
+        _isMooving = (horizontalInput != 0f);
 
         if (horizontalInput < 0 && _facingRight)
         {
@@ -50,6 +56,8 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
+
+        _anim.SetBool("Run", _isMooving);
     }
 
     private bool IsGrounded()
