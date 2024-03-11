@@ -36,6 +36,11 @@ public class PlayerController : MonoBehaviour
         Jump();
     }
 
+    private void LateUpdate()
+    {
+        _anim.SetBool("Run", _isMooving);
+    }
+
     private void FixedUpdate()
     {
         float horizontalVelocity = _movement.normalized.x * _speed;
@@ -56,8 +61,6 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
-
-        _anim.SetBool("Run", _isMooving);
     }
 
     private bool IsGrounded()
