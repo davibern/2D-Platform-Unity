@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private bool _isGrounded;
     private bool _facingRight = true;
 
-    [Header("GameObjects")]
+    [Header("Components")]
     [SerializeField] private Transform _groundCheck;
     private Rigidbody2D _rb;
 
