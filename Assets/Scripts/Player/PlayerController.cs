@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        _anim.SetBool("Run", _isMooving);
+        _anim.SetBool("Run", _isMooving && _isGrounded);
         _anim.SetBool("IsGrounded", _isGrounded);
         _anim.SetFloat("VerticalVelocity", _rb.velocity.y);
     }
