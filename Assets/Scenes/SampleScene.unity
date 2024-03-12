@@ -829,8 +829,8 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!212 &1209177918
 SpriteRenderer:
@@ -915,6 +915,7 @@ MonoBehaviour:
   _speed: 10
   _jumpForce: 15
   _groundCheck: {fileID: 477976601}
+  _isGrounded: 0
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
