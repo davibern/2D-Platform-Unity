@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform _groundCheck;
     private Vector2 _movement;
     private float _groundCheckRadius = 0.3f;
-    private bool _isGrounded;
+    [SerializeField] private bool _isGrounded;
     private bool _facingRight = true;
 
     [Header("Animations")]
@@ -29,6 +29,11 @@ public class PlayerController : MonoBehaviour
         _anim = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        _anim.SetBool("IsGrounded", true);
+    }
+
     private void Update()
     {
         Movement();
@@ -39,6 +44,8 @@ public class PlayerController : MonoBehaviour
     private void LateUpdate()
     {
         _anim.SetBool("Run", _isMooving);
+        _anim.SetBool("IsGrounded", _isGrounded);
+        _anim.SetFloat("VerticalVelocity", _rb.velocity.y);
     }
 
     private void FixedUpdate()
