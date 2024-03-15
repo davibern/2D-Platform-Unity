@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private static PlayerController _instance;
+
     [Header("Movement")]
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
@@ -23,10 +25,20 @@ public class PlayerController : MonoBehaviour
     [Header("Layers")]
     [SerializeField] private LayerMask _groundLayer;
 
+    public static PlayerController Instance {  get { return _instance; } }
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
+
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 
     private void Start()
