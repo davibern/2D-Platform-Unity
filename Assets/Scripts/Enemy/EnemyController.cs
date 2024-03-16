@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    private float _livingTime = 0.5f;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Te quito vida");
         }
     }
 
@@ -16,8 +17,9 @@ public class EnemyController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Me matas!");
-            gameObject.SetActive(false);
+            Debug.Log("triggered");
+            Destroy(gameObject, _livingTime);
+            PlayerController.Instance.HitEnemy = true;
         }
     }
 }

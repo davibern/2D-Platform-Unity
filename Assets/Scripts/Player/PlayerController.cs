@@ -12,8 +12,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform _groundCheck;
     private Vector2 _movement;
     private float _groundCheckRadius = 0.3f;
-    [SerializeField] private bool _isGrounded;
+    private bool _isGrounded;
     private bool _facingRight = true;
+
+    [Header("Rebound")]
+    private bool _hitEnemy;
+    public bool HitEnemy { set { _hitEnemy = value; } }
 
     [Header("Animations")]
     private bool _isMooving;
@@ -37,7 +41,6 @@ public class PlayerController : MonoBehaviour
             Destroy(this.gameObject);
         } else {
             _instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
     }
 
@@ -51,6 +54,7 @@ public class PlayerController : MonoBehaviour
         Movement();
         IsGrounded();
         Jump();
+        Rebound();
     }
 
     private void LateUpdate()
@@ -92,6 +96,16 @@ public class PlayerController : MonoBehaviour
         if (!_isGrounded) return;
         if (Input.GetButtonDown("Jump") && _isGrounded)
             _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+    }
+
+    private void Rebound()
+    {
+        if (_hitEnemy)
+        {
+            Debug.Log(_hitEnemy);
+            _rb.velocity = Vector2.up * _jumpForce;
+            _hitEnemy = false;
+        }
     }
 
     private void Flip()
