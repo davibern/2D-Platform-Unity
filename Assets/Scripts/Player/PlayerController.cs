@@ -102,7 +102,6 @@ public class PlayerController : MonoBehaviour
     {
         if (_hitEnemy)
         {
-            Debug.Log(_hitEnemy);
             _rb.velocity = Vector2.up * _jumpForce;
             _hitEnemy = false;
         }
