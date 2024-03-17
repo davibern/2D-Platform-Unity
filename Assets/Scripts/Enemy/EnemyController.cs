@@ -19,19 +19,25 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
+            DefeatPlayer();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             _anim.SetTrigger("Die");
             PlayerController.Instance.HitEnemy = true;
             AudioManager.Instance.PlayDefeatSlime();
             Destroy(gameObject, _livingTime);
         }
+    }
+
+    private void DefeatPlayer()
+    {
+        PlayerController.Instance.GetDamage();
     }
 }

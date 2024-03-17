@@ -119,6 +119,11 @@ public class PlayerController : MonoBehaviour
         transform.localScale = new Vector3(localScaleX, transform.localScale.y, transform.localScale.z);
     }
 
+    public void GetDamage()
+    {
+        gameObject.SetActive(false);
+    }
+
     private void OnDestroy()
     {
         _instance = null;
