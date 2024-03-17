@@ -95,7 +95,11 @@ public class PlayerController : MonoBehaviour
     {
         if (!_isGrounded) return;
         if (Input.GetButtonDown("Jump") && _isGrounded)
+        {
             _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            AudioManager.Instance.PlayJump();
+        }
+
     }
 
     private void Rebound()
@@ -113,5 +117,10 @@ public class PlayerController : MonoBehaviour
         float localScaleX = transform.localScale.x;
         localScaleX = localScaleX * -1;
         transform.localScale = new Vector3(localScaleX, transform.localScale.y, transform.localScale.z);
+    }
+
+    private void OnDestroy()
+    {
+        _instance = null;
     }
 }
