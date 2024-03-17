@@ -30,7 +30,7 @@ public class EnemyController : MonoBehaviour
         {
             _anim.SetTrigger("Die");
             PlayerController.Instance.HitEnemy = true;
-            //gameObject.SetActive(false);
+            AudioManager.Instance.PlayDefeatSlime();
             Destroy(gameObject, _livingTime);
         }
     }
