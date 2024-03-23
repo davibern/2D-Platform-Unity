@@ -72,11 +72,9 @@ public class WayPoint : MonoBehaviour
         if (transform.position.x < _transform[next].position.x)
         {
             _sp.flipX = false;
-            Debug.Log("Facing Right");
         } else
         {
             _sp.flipX = true;
-            Debug.Log("Facing Left");
         }
     }
 
