@@ -1,20 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class WayPoint : MonoBehaviour
 {
+    [Header("Movmenet")]
     [SerializeField] private float _speed;
     [SerializeField] private float _distance;
+
+    [Header("TypeMovement")]
+    [SerializeField] private bool _isRandomMovement;
     [SerializeField] private Transform[] _transform;
     private int _nextStep = 0;
+    private int _randNumber;
     private SpriteRenderer _sp;
     private Animator _anim;
 
     private void Start()
     {
+        _randNumber = UnityEngine.Random.Range(0, _transform.Length);
         _sp = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();
         Flip();
@@ -22,10 +27,16 @@ public class WayPoint : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Movement();
+        if (_isRandomMovement)
+        {
+            MovementBetweenRandmonPoints();
+        } else
+        {
+            MovementBetweenTwoPoints();
+        }
     }
 
-    private void Movement()
+    private void MovementBetweenTwoPoints()
     {
         transform.position = Vector2.MoveTowards(transform.position, _transform[_nextStep].position, _speed * Time.deltaTime);
 
@@ -43,14 +54,29 @@ public class WayPoint : MonoBehaviour
         }
     }
 
+    private void MovementBetweenRandmonPoints()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, _transform[_randNumber].position, _speed * Time.deltaTime);
+
+        if (Vector2.Distance(transform.position, _transform[_randNumber].position) < _distance )
+        {
+            _randNumber = UnityEngine.Random.Range(0, _transform.Length);
+            Flip();
+        }
+    }
+
     private void Flip()
     {
-        if (transform.position.x < _transform[_nextStep].position.x)
+        int next = _isRandomMovement ? _randNumber : _nextStep;
+
+        if (transform.position.x < _transform[next].position.x)
         {
             _sp.flipX = false;
+            Debug.Log("Facing Right");
         } else
         {
             _sp.flipX = true;
+            Debug.Log("Facing Left");
         }
     }
 
