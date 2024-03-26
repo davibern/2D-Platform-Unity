@@ -17,12 +17,18 @@ public class WayPoint : MonoBehaviour
     private SpriteRenderer _sp;
     private Animator _anim;
 
-    private void Start()
+    private void Awake()
     {
         _randNumber = UnityEngine.Random.Range(0, _transform.Length);
         _sp = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();
         Flip();
+    }
+
+    private void Start()
+    {
+        _anim.SetBool("Walk", true);
+
     }
 
     private void FixedUpdate()
