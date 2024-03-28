@@ -28,7 +28,6 @@ public class WayPoint : MonoBehaviour
     private void Start()
     {
         _anim.SetBool("Walk", true);
-
     }
 
     private void FixedUpdate()
@@ -44,19 +43,22 @@ public class WayPoint : MonoBehaviour
 
     private void MovementBetweenTwoPoints()
     {
-        transform.position = Vector2.MoveTowards(transform.position, _transform[_nextStep].position, _speed * Time.deltaTime);
-
-        if (Vector2.Distance(transform.position, _transform[_nextStep].position) < _distance )
+        if (EnemyController.Instance.IsAlive())
         {
-            _nextStep += 1;
+            transform.position = Vector2.MoveTowards(transform.position, _transform[_nextStep].position, _speed * Time.deltaTime);
 
-            if (HasParameter("Walk"))
-                _anim.SetBool("Walk", true);
+            if (Vector2.Distance(transform.position, _transform[_nextStep].position) < _distance )
+            {
+                _nextStep += 1;
 
-            if (_nextStep >= _transform.Length )
-                _nextStep = 0;
+                if (HasParameter("Walk"))
+                    _anim.SetBool("Walk", true);
 
-            Flip();
+                if (_nextStep >= _transform.Length )
+                    _nextStep = 0;
+
+                Flip();
+            }
         }
     }
 
