@@ -29,6 +29,7 @@ public class AudioManager : MonoBehaviour
             _instance = this;
         }
     }
+
     private void PlaySound(AudioClip clip)
     {
         if (clip != null)
