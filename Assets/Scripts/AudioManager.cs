@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [Header("Singleton")]
     private static AudioManager _instance;
 
     [Header("Components")]
