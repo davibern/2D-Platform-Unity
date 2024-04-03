@@ -53,40 +53,55 @@ public class WayPoint : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, _transform[_nextStep].position, _speed * Time.deltaTime);
 
-            float distance = Vector2.Distance(transform.position, _target.position);
-
-            if (distance < _minDistance && !_isFacingRight)
+            if (HasParameter("Attack"))
             {
-                _anim.SetBool("Attack", true);
-                _anim.SetBool("Walk", false);
-
-                // Obtener el BoxCollider2D del hijo
-                BoxCollider2D childCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
-                if (!_isFacingRight) // Si el padre no está mirando hacia la derecha
-                {
-                    // Modificar el offset del BoxCollider2D del hijo para moverlo a la izquierda
-                    childCollider.offset = new Vector2(childCollider.offset.x * -1, childCollider.offset.y);
-                    childCollider.isTrigger = true;
-                }
-                else
-                {
-                    // Si el padre está mirando hacia la derecha, restablecer el offset del BoxCollider2D del hijo
-                    childCollider.offset = new Vector2(1.0f, childCollider.offset.y);
-                    childCollider.isTrigger = true;
-                }
+                Attack();
             }
-            else if (Vector2.Distance(transform.position, _transform[_nextStep].position) < _distance )
+            else
             {
-                _anim.SetBool("Attack", false);
-                _anim.SetBool("Walk", true);
-
                 _nextStep += 1;
 
-                if (_nextStep >= _transform.Length )
+                if (_nextStep >= _transform.Length)
                     _nextStep = 0;
 
                 Flip();
             }
+        }
+    }
+
+    private void Attack()
+    {
+
+        float distance = Vector2.Distance(transform.position, _target.position);
+
+        if (distance < _minDistance && !_isFacingRight)
+        {
+            _anim.SetBool("Attack", true);
+            _anim.SetBool("Walk", false);
+
+            BoxCollider2D childCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
+            if (!_isFacingRight)
+            {
+                childCollider.offset = new Vector2(childCollider.offset.x * -1, childCollider.offset.y);
+                childCollider.isTrigger = true;
+            }
+            else
+            {
+                childCollider.offset = new Vector2(1.0f, childCollider.offset.y);
+                childCollider.isTrigger = true;
+            }
+        }
+        else if (Vector2.Distance(transform.position, _transform[_nextStep].position) < _distance)
+        {
+            _anim.SetBool("Attack", false);
+            _anim.SetBool("Walk", true);
+
+            _nextStep += 1;
+
+            if (_nextStep >= _transform.Length)
+                _nextStep = 0;
+
+            Flip();
         }
     }
 
