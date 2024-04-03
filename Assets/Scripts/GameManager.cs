@@ -22,7 +22,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetScore(int score) => this.score = score;
+    private void Start()
+    {
+        this.score = 0;
+    }
+
+    public void SetScore(int score) => this.score += score;
 
     public int GetScore() => this.score;
 }

@@ -16,6 +16,7 @@ public class Coin : MonoBehaviour
         {
             GameManager.Instance.SetScore(score);
             AudioManager.Instance.PlayCoin();
+            UIManager.Instance.SetScore();
             gameObject.SetActive(false);
             Destroy(gameObject, livingTime);
         }       
