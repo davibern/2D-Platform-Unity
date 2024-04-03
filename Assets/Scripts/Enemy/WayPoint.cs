@@ -83,12 +83,10 @@ public class WayPoint : MonoBehaviour
             if (!_isFacingRight)
             {
                 childCollider.offset = new Vector2(childCollider.offset.x * -1, childCollider.offset.y);
-                childCollider.isTrigger = true;
             }
             else
             {
                 childCollider.offset = new Vector2(1.0f, childCollider.offset.y);
-                childCollider.isTrigger = true;
             }
         }
         else if (Vector2.Distance(transform.position, _transform[_nextStep].position) < _distance)
