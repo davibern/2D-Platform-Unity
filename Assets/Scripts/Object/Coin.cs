@@ -15,6 +15,7 @@ public class Coin : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             GameManager.Instance.SetScore(score);
+            AudioManager.Instance.PlayCoin();
             gameObject.SetActive(false);
             Destroy(gameObject, livingTime);
         }       
